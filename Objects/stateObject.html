@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Column Styling</title>
+</head>
+<body>
+    <table id="productTable" border="1">
+        <thead>
+            <tr>
+                <th>Company</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be inserted here by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        let Product = {
+            company: 'Mango',
+            price: 87,
+            renderTable: function () {
+                const tableBody = document.querySelector('#productTable tbody');
+                const data = [
+                    { company: 'Mango', price: 87 },
+                    { company: 'Apple', price: 120 },
+                    { company: 'Banana', price: 45 }
+                ];
+
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+
+                    // Create company cell
+                    const companyCell = document.createElement('td');
+                    companyCell.textContent = item.company;
+                    row.appendChild(companyCell);
+
+                    // Create price cell
+                    const priceCell = document.createElement('td');
+                    priceCell.textContent = item.price;
+                    row.appendChild(priceCell);
+
+                    tableBody.appendChild(row);
+                });
+
+                // Highlight the column if it matches the company
+                this.highlightColumn();
+            },
+            highlightColumn: function () {
+                const rows = document.querySelectorAll('#productTable tbody tr');
+                rows.forEach(row => {
+                    const cells = row.cells;
+                    if (cells[0].textContent === this.company) {
+                        cells[0].style.backgroundColor = 'red';
+                        cells[0].style.color = 'white';
+                    }
+                });
+                
+            }
+        };
+
+        // Render the table when the script runs
+        Product.renderTable();
+    </script>
+</body>
+</html>
